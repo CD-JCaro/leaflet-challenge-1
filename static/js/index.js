@@ -173,7 +173,6 @@ function chooseColor(magnitude) {
                          "greenyellow"; // <= 1 default
 };
 
-
 //----------------------------------------------------------------------------
 // Function to amplify circle size by earthquake magnitude
 //----------------------------------------------------------------------------
