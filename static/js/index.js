@@ -15,12 +15,12 @@ renderMap(earthquakeURL, faultLinesURL);
 //----------------------------------------------------------------------------
 function renderMap(earthquakeURL, faultLinesURL) {
 
-    // Performs a GET request for the earthquake URL
+    // Performs GET request for the earthquake URL
     d3.json(earthquakeURL, function(data) {
         console.log(earthquakeURL)
         // Stores response into earthquakeData
         var earthquakeData = data;
-        // Performs a GET request to the fault lines URL
+        // Performs GET request for the fault lines URL
         d3.json(faultLinesURL, function(data) {
             // Stores response into faultLineData
             var faultLineData = data;
@@ -34,7 +34,7 @@ function renderMap(earthquakeURL, faultLinesURL) {
     function createFeatures(earthquakeData, faultLineData) {
 
         // Defines two functions that are run once for each feature in earthquakeData
-        // Creates markers for each earthquake and add a popup describing the place, time, and magnitude of each
+        // Creates markers for each earthquake and adds a popup describing the place, time, and magnitude of each
         function onEachQuakeLayer(feature, layer) {
             return new L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
                 fillOpacity: 1,
@@ -47,7 +47,7 @@ function renderMap(earthquakeURL, faultLinesURL) {
             layer.bindPopup("<h3>" + feature.properties.place + "</h3><hr><p>" + new Date(feature.properties.time) + "</p><hr><p>Magnitude: " + feature.properties.mag + "</p>");
         };
 
-        // Defines a function that are run once for each feature in faultLineData
+        // Defines a function that is run once for each feature in faultLineData
         // Create fault lines
         function onEachFaultLine(feature, layer) {
             L.polyline(feature.geometry.coordinates);
@@ -60,7 +60,7 @@ function renderMap(earthquakeURL, faultLinesURL) {
             pointToLayer: onEachQuakeLayer
         });
 
-        // Creates a GeoJSON layer containing the features array on the faultLineData object
+        // Creates a GeoJSON layer containing the features array of the faultLineData object
         // Run the onEachFaultLine function once for each element in the array
         var faultLines = L.geoJSON(faultLineData, {
             onEachFeature: onEachFaultLine,
@@ -70,7 +70,7 @@ function renderMap(earthquakeURL, faultLinesURL) {
             }
         });
 
-        // Creates a Timeline layer containing the features array on the earthquakeData object
+        // Creates a Timeline layer containing the features array of the earthquakeData object
         // Run getInterval function to get the time interval for each earthquake (length based on magnitude)
         // Run the onEachEarthquake & onEachQuakeLayer functions once for each element in the array
         var timelineLayer = L.timeline(earthquakeData, {
@@ -126,7 +126,7 @@ function renderMap(earthquakeURL, faultLinesURL) {
         });
 
         // Create a layer control
-        // Pass in our baseMaps and overlayMaps
+        // Pass in baseMaps and overlayMaps
         // Add the layer control to the map
         L.control.layers(baseMaps, overlayMaps, {
             collapsed: true
@@ -148,7 +148,7 @@ function renderMap(earthquakeURL, faultLinesURL) {
         };
         legend.addTo(map);
 
-        // Adds timeline & timeline controls
+        // Adds timeline and timeline controls
         var timelineControl = L.timelineSliderControl({
             formatOutput: function(date) {
                 return new Date(date).toString();
