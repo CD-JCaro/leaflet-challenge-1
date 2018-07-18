@@ -36,7 +36,6 @@ function renderMap(earthquakeURL, faultLinesURL) {
     // Defines two functions that are run once for each feature in earthquakeData
     // Creates markers for each earthquake and adds a popup describing the place, time, and magnitude of each
     function onEachQuakeLayer(feature, layer) {
-      console.log(feature.properties.time);
       return new L.circleMarker([feature.geometry.coordinates[1], feature.geometry.coordinates[0]], {
         fillOpacity: 1,
         color: chooseColor(feature.properties.mag),
@@ -152,10 +151,7 @@ function renderMap(earthquakeURL, faultLinesURL) {
     // Adds timeline and timeline controls
     let timelineControl = L.timelineSliderControl({
       formatOutput: function(date) {
-        let myRetVal = new Date(date).toString();
-        console.log(date);
-        console.log(myRetVal);
-        return myRetVal;
+        return new Date(date).toString();
       }
     });
     timelineControl.addTo(map);
